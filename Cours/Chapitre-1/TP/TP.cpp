@@ -4,11 +4,10 @@
 int main()
 {
     bool bonneEntree {false};
-    while(!bonneEntree)
+    do
     {
         std::cout << "Quel age as-tu ?" << std::endl;
         int age {0};
-        //std::cin >> age;
         bool check {std::cin >> age};
         if(check)
         {
@@ -21,7 +20,7 @@ int main()
             std::cin.ignore(255, '\n');
             std::cout << "Erreur, reessaye." << std::endl;
         }
-    }
+    } while(!bonneEntree);
     
     return 0;
 }
