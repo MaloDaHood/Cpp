@@ -2,7 +2,7 @@
 
 int main()
 {
-    std::cout << "Quel nombre ?" << std::endl;
+    std::cout << "Quel nombre ?";
     int n;
     std::cin >> n;
     for(int i {0}; i<=n; i++)
