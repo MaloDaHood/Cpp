@@ -12,7 +12,7 @@ int main()
         int totalCartesJoueur {carteJoueur1+carteJoueur2};
         if(carteJoueur1>9||carteJoueur2>9)
         {
-
+            //AJOUTER STRING NOM CARTES
         }
         std::cout << "Vous tirez un " << carteJoueur1 << " et un " << carteJoueur2 << std::endl << "Vous etes a " << totalCartesJoueur << std::endl;
         bool fini {GagneOuPerdu(totalCartesJoueur, true)};
