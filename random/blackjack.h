@@ -8,7 +8,7 @@
 
 bool GagneOuPerdu(int total, bool joueur);
 bool PiocherCarte();
-int NouvelleCarte(int carteJoueur1, int carteJoueur2, int totalCartesJoueur, bool piocher);
+int NouvelleCarte(int carteJoueur1, int carteJoueur2, int totalCartesJoueur, bool piocher, bool const joueur);
 void PlusOuMoins(int cartesJoueur, int cartesCroupier);
 bool Rejouer();
 
