@@ -6,6 +6,7 @@
 #include <time.h>
 #include <vector>
 #include <string>
+#include <array>
 
 bool GagneOuPerdu(int total, bool joueur);
 bool PiocherCarte();

@@ -6,9 +6,9 @@ int main()
     int lenght;
     std::cin >> lenght;
     
-    int F0 {0};
-    int F1 {1};
-    int n;
+    double F0 {0.0};
+    double F1 {1.0};
+    double n;
 
     std::cout << "F0:" << F0 << std::endl << "F1:" << F1 << std::endl;
 
