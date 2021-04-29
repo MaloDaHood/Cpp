@@ -112,13 +112,12 @@ bool PiocherCarte()
         std::cout << "Voulez-vous tirer une autre carte ?" << std::endl << "1. OUI" << std::endl << "2. NON" << std::endl;
         int piocherInt;
         std::cin >> piocherInt;
-        bool piocher;
         switch(piocherInt)
         {
             case 1:
-                return piocher=true;
+                return true;
             case 2:
-                return piocher=false;
+                return false;
             default:
                 std::cout << "Vous devez entrer soit 1, soit 2." << std::endl;
         }
@@ -174,4 +173,3 @@ bool Rejouer()
         }
     } while (!bonneEntree);
 }
-
