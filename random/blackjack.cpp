@@ -108,6 +108,11 @@ bool PiocherCarte()
         std::cout << "Voulez-vous tirer une autre carte ?" << std::endl << "1. OUI" << std::endl << "2. NON" << std::endl;
         int piocherInt;
         std::cin >> piocherInt;
+        if(std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(256,'\n');
+        }
         switch(piocherInt)
         {
             case 1:
@@ -158,6 +163,11 @@ bool Rejouer()
         std::cout << "Voulez-vous rejouer ?" << std::endl << "1. OUI" << std::endl << "2. NON" << std::endl;
         int rejouer;
         std::cin >> rejouer;
+        if(std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(256,'\n');
+        }
         switch(rejouer)
         {
             case 1:
