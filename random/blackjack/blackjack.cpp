@@ -103,14 +103,14 @@ bool PiocherCarte()
     do
     {
         std::cout << "Voulez-vous tirer une autre carte ?" << std::endl << "1. OUI" << std::endl << "2. NON" << std::endl;
-        int piocherInt;
-        std::cin >> piocherInt;
+        int piocher;
+        std::cin >> piocher;
         if(std::cin.fail())
         {
             std::cin.clear();
             std::cin.ignore(256,'\n');
         }
-        switch(piocherInt)
+        switch(piocher)
         {
             case 1:
                 return true;

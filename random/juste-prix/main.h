@@ -1,0 +1,20 @@
+#ifndef MAIN
+#define MAIN
+
+#include <iostream>
+#include <time.h>
+
+// main.cpp
+void ErreurEntree(int const max);
+int Difficulte();
+int NouveauNombre(int const max, bool const user);
+bool Rejouer();
+
+// user.cpp
+void MainUser();
+void GameUser(int const nombreMystere, int const max);
+
+// computer.cpp
+void MainComputer();
+
+#endif
