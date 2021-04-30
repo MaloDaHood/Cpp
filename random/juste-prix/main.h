@@ -7,7 +7,7 @@
 // main.cpp
 void ErreurEntree(int const max);
 int Difficulte();
-int NouveauNombre(int const max, bool const user);
+int NouveauNombre(int const max);
 bool Rejouer();
 
 // user.cpp

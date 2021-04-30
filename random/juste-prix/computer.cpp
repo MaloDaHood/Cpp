@@ -3,5 +3,5 @@
 void MainComputer()
 {
     int const nombreMax {Difficulte()};
-    int const nombreMystere {NouveauNombre(nombreMax, false)};
+    int const nombreMystere {NouveauNombre(nombreMax)};
 }

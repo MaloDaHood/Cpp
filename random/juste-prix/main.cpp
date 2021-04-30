@@ -54,6 +54,31 @@ void ErreurEntree(int const max)
     }
 }
 
+int Difficulte()
+{
+    bool bonneEntree {false};
+    do
+    {
+        std::cout << "Quel niveau de difficulté choisissez vous ?\n1. Facile(1/10)\n2. Moyen(1/100)\n3. Difficile(1/1000)" << std::endl;
+        int choix;
+        std::cin >> choix;
+        if(std::cin.fail()||choix<1||choix>3)
+            ErreurEntree(3);
+        else if(choix==1)
+            return 10;
+        else if(choix==2)
+            return 100;
+        else    
+            return 1000;
+    } while (!bonneEntree);
+}
+
+int NouveauNombre(int const max)
+{
+    srand ((unsigned)time(0));
+    return {1+(rand()%max)};
+}
+
 bool Rejouer()
 {
     bool bonneEntree {false};

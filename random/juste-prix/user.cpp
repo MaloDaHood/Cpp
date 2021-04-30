@@ -4,7 +4,7 @@
 void MainUser()
 {
     int const nombreMax {Difficulte()};
-    int const nombreMystere {NouveauNombre(nombreMax, true)};
+    int const nombreMystere {NouveauNombre(nombreMax)};
     system("cls");
     GameUser(nombreMystere, nombreMax);
 }
