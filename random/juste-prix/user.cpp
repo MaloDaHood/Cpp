@@ -4,7 +4,7 @@
 void MainUser()
 {
     int const nombreMax {Difficulte()};
-    int const nombreMystere {NouveauNombre(nombreMax)};
+    int const nombreMystere {NouveauNombre(nombreMax, 1)};
     system("cls");
     GameUser(nombreMystere, nombreMax);
 }
@@ -21,14 +21,14 @@ void GameUser(int const nombreMystere, int const max)
         {
             std::cout << "Quel est le nombre ?" << std::endl;
             std::cin >> guess;
-            if(std::cin.fail()||guess<1||guess>max)
+            if(std::cin.fail()||guess<1||guess>max) 
                 ErreurEntree(max);
-            else
+            else 
                 bonneEntree=true;
         } while (!bonneEntree);
         if(guess==nombreMystere)
         {
-            std::cout << "Bravo vous avez le nombre mystere.\nC'etait " << nombreMystere << ".\nVous l'avez trouve en " << compteur << " coups." << std::endl;
+            std::cout << "Bravo vous avez trouve le nombre mystere.\nC'etait " << nombreMystere << ".\nVous l'avez trouve en " << compteur << " coups." << std::endl;
             bonneReponse=true;
             continue;
         }

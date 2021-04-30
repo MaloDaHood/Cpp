@@ -2,10 +2,10 @@
 
 int main()
 {
-    system("cls");
     bool rejouer {true};
     while (rejouer)
     {
+        system("cls");
         std::cout << "Bienvenue dans une nouvelle partie du juste prix." << std::endl;
         bool bonneEntree {false};
         do
@@ -45,6 +45,13 @@ void ErreurEntree(int const max)
         std::cin.clear();
         std::cin.ignore(256, '\n');
     }
+    else if(max==-1)
+    {
+        system("cls");
+        std::cout << "Vous devez rentrer soit '+', '-' ou '='." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(256, '\n');
+    }
     else
     {
         system("cls");
@@ -64,19 +71,19 @@ int Difficulte()
         std::cin >> choix;
         if(std::cin.fail()||choix<1||choix>3)
             ErreurEntree(3);
-        else if(choix==1)
+        else if(choix==1) 
             return 10;
-        else if(choix==2)
+        else if(choix==2) 
             return 100;
-        else    
+        else 
             return 1000;
     } while (!bonneEntree);
 }
 
-int NouveauNombre(int const max)
+int NouveauNombre(int const max, int min)
 {
     srand ((unsigned)time(0));
-    return {1+(rand()%max)};
+    return rand()%((max+1)-min)+min;
 }
 
 bool Rejouer()
@@ -89,9 +96,9 @@ bool Rejouer()
         std::cin >> rejouer;
         if(std::cin.fail()||rejouer<1||rejouer>2)
             ErreurEntree(2);
-        else if(rejouer==1)
+        else if(rejouer==1) 
             return true;
-        else
+        else 
             return false;
     } while (!bonneEntree); 
 }
