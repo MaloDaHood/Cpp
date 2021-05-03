@@ -1,5 +1,5 @@
 ## C++
-Les fichiers executables ne sont présents.
+Les fichiers executables ne sont pas présents.
 Si vous voulez lancer le code vous devrez le compiler, vous pouvez utiliser GCC/G++ :
 
 - `g++ fileName.cpp -o outputName` : si il n'y a qu'un seul fichier source (.cpp)
