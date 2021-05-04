@@ -37,7 +37,7 @@ std::string Majuscule(std::string mot)
 void Game(std::string const motMystere)
 {
     std::vector<std::string> tableauLettres;
-    std::string lettre {""};
+    std::string lettre;
     bool fini {false};
     do
     {
@@ -50,9 +50,7 @@ void Game(std::string const motMystere)
             if(EstLettre(lettre)&&lettre.length()==1)
                 bonneEntree=true;
             else
-            {
                 std::cout << "Vous ne devez rentrer qu'une seule lettre et pas de chiffre." << std::endl;
-            }
         } while (!bonneEntree);
         system("cls");
         lettre=Majuscule(lettre);
@@ -90,5 +88,5 @@ void AfficherMot(std::string mot, std::vector<std::string> tableauLettres)
                 std::cout << lettre << " ";
             }
         }
-    } 
+    }
 }
