@@ -5,9 +5,7 @@ int main()
     system("cls");
     bool rejouer {true};
     while(rejouer)
-    {
         rejouer=Game();
-    }
     return EXIT_SUCCESS;
 }
 
@@ -16,10 +14,12 @@ bool Game()
     std::cout << "Bienvenue dans une nouvelle partie de BlackJack" << std::endl;
     int const mise {Miser()};
     srand ((unsigned)time(0));
-    int const carteJoueur1 {(1+(rand()%10))+1};
-    int const carteJoueur2 {(1+(rand()%10))+1};
+    int const carteJoueur1 {rand()%((11+1)-2)+2};
+    Figures(carteJoueur1, true);
+    int const carteJoueur2 {rand()%((11+1)-2)+2};
+    Figures(carteJoueur2, false);
     int totalCartesJoueur {carteJoueur1+carteJoueur2};
-    std::cout << "Vous tirez un " << carteJoueur1 << " et un " << carteJoueur2 << std::endl << "Vous etes a " << totalCartesJoueur << std::endl;
+    std::cout << "Vous etes a " << totalCartesJoueur << "." << std::endl;
     if(GagneOuPerdu(totalCartesJoueur, true, mise))
         return Piocher_Rejouer(false);
     bool piocher {Piocher_Rejouer(true)};
@@ -27,8 +27,8 @@ bool Game()
         totalCartesJoueur=NouvelleCarte(carteJoueur1, carteJoueur2, piocher, true, mise);
         if(totalCartesJoueur==-1)
             return Piocher_Rejouer(false);
-    int const carteCroupier1 {(1+(rand()%10))+1};
-    int const carteCroupier2 {(1+(rand()%10))+1};
+    int const carteCroupier1 {rand()%((11+1)-2)+2};
+    int const carteCroupier2 {rand()%((11+1)-2)+2};
     int totalCartesCroupier {carteCroupier1+carteCroupier2};
     std::cout << "Le croupier tire un " << carteCroupier1 << " et un " << carteCroupier2 << std::endl << "Il est a " << totalCartesCroupier << std::endl;
     if(GagneOuPerdu(totalCartesCroupier, false, mise))
@@ -134,7 +134,7 @@ int NouvelleCarte(int const carte1, int const carte2, bool piocher, bool const j
 
 int AddCarte(std::vector<int>& tableauCartes, int totalCartes)
 {
-    tableauCartes.push_back((1+(rand()%10))+1);
+    tableauCartes.push_back(rand()%((11+1)-2)+2);
     totalCartes=0;
     for(int const cartePiochee : tableauCartes)
         totalCartes+=cartePiochee;
@@ -212,4 +212,19 @@ void Gain(int const mise, bool const gagner)
     }
     std::ofstream fichierMiseEcriture {"mise.txt"};
     fichierMiseEcriture << gain;
+}
+
+void Figures(int const carte, bool const premier)
+{
+    std::array<std::string, 12> tableauFigures {"0", "0", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", " 10", " As"};
+    std::string nomCarte {tableauFigures[carte]};
+    if(nomCarte==" 10")
+    {
+        std::array<std::string, 3> ValetDameRoi {" Valet", "e Dame", " Roi"};
+        nomCarte=ValetDameRoi[rand()%3];
+    }
+    if(premier)
+        std::cout << "Vous tirez un" << nomCarte;
+    else
+        std::cout << " et un" << nomCarte << "." << std::endl;
 }
