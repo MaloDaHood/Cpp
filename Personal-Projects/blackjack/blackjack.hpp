@@ -19,8 +19,8 @@ void PlusOuMoins(int const cartesJoueur, int const cartesCroupier, int const mis
 void ErreurEntree(int const min, int const max, bool const as);
 int Miser();
 void Gain(int const mise, bool const gagner);
-int CartesFigures(bool const joueur, bool const initial);
-void AfficherCartes(std::string const carte1, bool const joueur, std::string const carte2="0");
+int CartesFigures(bool const joueur, bool const initial, int totalCartes);
+void AfficherCartes(std::string const carte1, bool const joueur, int const totalcartes, std::string const carte2="0");
 int As();
 
 #endif

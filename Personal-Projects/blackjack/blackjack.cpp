@@ -13,20 +13,24 @@ bool Game()
 {
     std::cout << "Bienvenue dans une nouvelle partie de BlackJack" << std::endl;
     int const mise {Miser()};
-    int totalCartesJoueur {CartesFigures(true, true)};
-    std::cout << "Vous etes a " << totalCartesJoueur << "." << std::endl;
+    int totalCartesJoueur {CartesFigures(true, true, 0)};
     if(GagneOuPerdu(totalCartesJoueur, true, mise))
         return Piocher_Rejouer(false);
     if(Piocher_Rejouer(true))
-        if(totalCartesJoueur=NouvelleCarte(totalCartesJoueur, true, mise)==-1)
+    {
+        totalCartesJoueur=NouvelleCarte(totalCartesJoueur, true, mise);
+        if(totalCartesJoueur==-1)
             return Piocher_Rejouer(false);
-    int totalCartesCroupier {CartesFigures(false, true)};
-    std::cout << "Il est a " << totalCartesCroupier << "." << std::endl;
+    }
+    int totalCartesCroupier {CartesFigures(false, true, 0)};
     if(GagneOuPerdu(totalCartesCroupier, false, mise))
         return Piocher_Rejouer(false);
     if(totalCartesCroupier<=15)
-        if(totalCartesCroupier=NouvelleCarte(totalCartesCroupier, false, mise)==-1)
+    {
+        totalCartesCroupier=NouvelleCarte(totalCartesCroupier, false, mise);
+        if(totalCartesCroupier==-1)
             return Piocher_Rejouer(false);
+    }
     PlusOuMoins(totalCartesJoueur, totalCartesCroupier, mise);
     return Piocher_Rejouer(false);
 }
@@ -100,8 +104,7 @@ int NouvelleCarte(int const totalPremieresCartes, bool const joueur, int const m
         do
         {
             Sleep(1000);
-            totalCartes+=CartesFigures(joueur, false);
-            std::cout << "Vous etes a " << totalCartes << std::endl;
+            totalCartes=CartesFigures(joueur, false, totalCartes);
             if(GagneOuPerdu(totalCartes, joueur, mise))
                 return -1;
         }while(Piocher_Rejouer(true));
@@ -111,8 +114,7 @@ int NouvelleCarte(int const totalPremieresCartes, bool const joueur, int const m
         do
         {
             Sleep(1000);
-            totalCartes+=CartesFigures(joueur, false);
-            std::cout << "Il est a " << totalCartes << std::endl;
+            totalCartes=CartesFigures(joueur, false, totalCartes);
             if(GagneOuPerdu(totalCartes, joueur, mise))
                 return -1;
         } while (totalCartes<=15);
@@ -122,6 +124,7 @@ int NouvelleCarte(int const totalPremieresCartes, bool const joueur, int const m
 
 void PlusOuMoins(int const cartesJoueur, int const cartesCroupier, int const mise)
 {
+    std::cout << "Vous : " << cartesJoueur << "\nCroupier : " << cartesCroupier << std::endl;
     if(21-cartesJoueur<21-cartesCroupier)
     {
         std::cout << "Vous gagnez, vous etes le plus proche de 21." << std::endl;
@@ -132,7 +135,7 @@ void PlusOuMoins(int const cartesJoueur, int const cartesCroupier, int const mis
         std::cout << "Vous perdez, le croupier est plus proche de 21." << std::endl;
         Gain(mise, false);
     }
-    else
+    else if(cartesJoueur==cartesCroupier)
         std::cout << "Il y a egalite, personne ne gagne.\nVous conservez votre argent." << std::endl;
 }
 
@@ -193,7 +196,7 @@ void Gain(int const mise, bool const gagner)
     fichierMiseEcriture << gain;
 }
 
-int CartesFigures(bool const joueur, bool const initial)
+int CartesFigures(bool const joueur, bool const initial, int totalCartes)
 {
     int nombreCartes {0};
     if(initial)
@@ -201,7 +204,6 @@ int CartesFigures(bool const joueur, bool const initial)
     else
         nombreCartes=1;
     srand ((unsigned)time(0));
-    int totalCartes {0};
     std::array<int, 2> premieresCartes {0, 0};
     for(int i {0}; i<nombreCartes; i++)
     {
@@ -223,13 +225,13 @@ int CartesFigures(bool const joueur, bool const initial)
                 totalCartes+=As();
     }
     if(initial)
-        AfficherCartes(carte[0], joueur, carte[1]);
+        AfficherCartes(carte[0], joueur, totalCartes, carte[1]);
     else
-        AfficherCartes(carte[0], joueur);
+        AfficherCartes(carte[0], joueur, totalCartes);
     return totalCartes;
 }
 
-void AfficherCartes(std::string const carte1, bool const joueur, std::string const carte2)
+void AfficherCartes(std::string const carte1, bool const joueur, int const totalcartes, std::string const carte2)
 {
     if(joueur)
     {
@@ -239,6 +241,7 @@ void AfficherCartes(std::string const carte1, bool const joueur, std::string con
             std::cout << "Vous tirez un" << carte1 << "." << std::endl;
         else
             std::cout << "Vous tirez un" << carte1 << " et un" << carte2 << "." << std::endl;
+        std::cout << "Vous etes a " << totalcartes << "." << std::endl;
     }
     else
     {
@@ -248,6 +251,7 @@ void AfficherCartes(std::string const carte1, bool const joueur, std::string con
             std::cout << "Le croupier tire un" << carte1 << "." << std::endl;
         else
             std::cout << "Le croupier tire un" << carte1 << " et un" << carte2 << "." << std::endl;
+        std::cout << "Il est a " << totalcartes << "." << std::endl;
     }
 }
 
