@@ -13,24 +13,20 @@ bool Game()
 {
     std::cout << "Bienvenue dans une nouvelle partie de BlackJack" << std::endl;
     int const mise {Miser()};
-    int totalCartesJoueur {CartesInitiales(true)};
+    int totalCartesJoueur {CartesFigures(true, true)};
     std::cout << "Vous etes a " << totalCartesJoueur << "." << std::endl;
     if(GagneOuPerdu(totalCartesJoueur, true, mise))
         return Piocher_Rejouer(false);
     if(Piocher_Rejouer(true))
-        totalCartesJoueur=NouvelleCarte(totalCartesJoueur, true, true, mise);
-        if(totalCartesJoueur==-1)
+        if(totalCartesJoueur=NouvelleCarte(totalCartesJoueur, true, mise)==-1)
             return Piocher_Rejouer(false);
-    int totalCartesCroupier {CartesInitiales(false)};
+    int totalCartesCroupier {CartesFigures(false, true)};
     std::cout << "Il est a " << totalCartesCroupier << "." << std::endl;
     if(GagneOuPerdu(totalCartesCroupier, false, mise))
         return Piocher_Rejouer(false);
     if(totalCartesCroupier<=15)
-    {
-        totalCartesCroupier=NouvelleCarte(totalCartesCroupier, false, false, mise);
-        if(totalCartesCroupier==-1)
+        if(totalCartesCroupier=NouvelleCarte(totalCartesCroupier, false, mise)==-1)
             return Piocher_Rejouer(false);
-    }
     PlusOuMoins(totalCartesJoueur, totalCartesCroupier, mise);
     return Piocher_Rejouer(false);
 }
@@ -96,40 +92,31 @@ bool Piocher_Rejouer(bool const piocher)
         return false;
 }
 
-int NouvelleCarte(int const totalPremieresCartes, bool piocher, bool const joueur, int const mise)
+int NouvelleCarte(int const totalPremieresCartes, bool const joueur, int const mise)
 {
-    int totalCartes;
-    std::vector<int> tableauCartes {totalPremieresCartes};
+    int totalCartes {totalPremieresCartes};
     if(joueur)
     {
         do
         {
-            totalCartes=AddCarte(tableauCartes, totalCartes);
-            std::cout << "Vous tirez un " << tableauCartes.back() << ". Vous etes a " << totalCartes << std::endl;
-            if(GagneOuPerdu(totalCartes, true, mise))
+            Sleep(1000);
+            totalCartes+=CartesFigures(joueur, false);
+            std::cout << "Vous etes a " << totalCartes << std::endl;
+            if(GagneOuPerdu(totalCartes, joueur, mise))
                 return -1;
-            piocher=Piocher_Rejouer(true);
-        }while(piocher);
+        }while(Piocher_Rejouer(true));
     }
     else
     {
         do
         {
-            totalCartes=AddCarte(tableauCartes, totalCartes);
-            std::cout << "Le croupier tire une autre carte." << std::endl << "Il tire un " << tableauCartes.back() << ". Il est maintenant a " << totalCartes << std::endl;
-            if(GagneOuPerdu(totalCartes, false, mise))
+            Sleep(1000);
+            totalCartes+=CartesFigures(joueur, false);
+            std::cout << "Il est a " << totalCartes << std::endl;
+            if(GagneOuPerdu(totalCartes, joueur, mise))
                 return -1;
         } while (totalCartes<=15);
     }
-    return totalCartes;
-}
-
-int AddCarte(std::vector<int>& tableauCartes, int totalCartes)
-{
-    tableauCartes.push_back(rand()%((11+1)-2)+2);
-    totalCartes=0;
-    for(int const cartePiochee : tableauCartes)
-        totalCartes+=cartePiochee;
     return totalCartes;
 }
 
@@ -206,19 +193,24 @@ void Gain(int const mise, bool const gagner)
     fichierMiseEcriture << gain;
 }
 
-int CartesInitiales(bool const joueur)
+int CartesFigures(bool const joueur, bool const initial)
 {
+    int nombreCartes {0};
+    if(initial)
+        nombreCartes=2;
+    else
+        nombreCartes=1;
     srand ((unsigned)time(0));
     int totalCartes {0};
     std::array<int, 2> premieresCartes {0, 0};
-    for(int i {0}; i<2; i++)
+    for(int i {0}; i<nombreCartes; i++)
     {
         premieresCartes[i]=rand()%((11+1)-2)+2;
         totalCartes+=premieresCartes[i];
     }
     std::array<std::string, 12> const tableauFigures {"0", "0", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", " 10", " As"};
     std::array<std::string, 2> carte {"0", "0"};
-    for(int i {0}; i<2; i++)
+    for(int i {0}; i<nombreCartes; i++)
     {
         carte[i]=tableauFigures[premieresCartes[i]];
         if(carte[i]==" 10")
@@ -230,21 +222,33 @@ int CartesInitiales(bool const joueur)
             if(carte[i]==" As")
                 totalCartes+=As();
     }
-    if(carte[0]==carte[1])
+    if(initial)
+        AfficherCartes(carte[0], joueur, carte[1]);
+    else
+        AfficherCartes(carte[0], joueur);
+    return totalCartes;
+}
+
+void AfficherCartes(std::string const carte1, bool const joueur, std::string const carte2)
+{
+    if(joueur)
     {
-        if(joueur)
-            std::cout << "Vous tirez deux fois un" << carte[0] << "." << std::endl;
+        if(carte1==carte2)
+            std::cout << "Vous tirez deux fois un" << carte1 << "." << std::endl;
+        else if(carte2=="0")
+            std::cout << "Vous tirez un" << carte1 << "." << std::endl;
         else
-            std::cout << "Le croupier tire deux fois un" << carte[0] << "." << std::endl;
+            std::cout << "Vous tirez un" << carte1 << " et un" << carte2 << "." << std::endl;
     }
     else
     {
-        if(joueur)
-            std::cout << "Vous tirez un" << carte[0] << " et un" << carte[1] << "." << std::endl;
+        if(carte1==carte2)
+            std::cout << "Le croupier tire deux fois un" << carte1 << "." << std::endl;
+        else if(carte2=="0")
+            std::cout << "Le croupier tire un" << carte1 << "." << std::endl;
         else
-            std::cout << "Le croupier tire un" << carte[0] << " et un" << carte[1] << "." << std::endl;
+            std::cout << "Le croupier tire un" << carte1 << " et un" << carte2 << "." << std::endl;
     }
-    return totalCartes;
 }
 
 int As()
