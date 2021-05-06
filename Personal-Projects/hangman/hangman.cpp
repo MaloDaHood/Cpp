@@ -3,12 +3,12 @@
 int main()
 {
     bool playAgain {true};
-    while (playAgain)
+    while (playAgain) //game loop
         playAgain=Game();
     return EXIT_SUCCESS;
 }
 
-bool Game() //game loop
+bool Game() //main game function
 {
     std::cout << "Welcome to a new game of hangman." << std::endl;
     std::string const word {NewWord()};
@@ -17,17 +17,15 @@ bool Game() //game loop
     std::vector<char> lettersUsed;
     do
     {
-        std::cout << "\nlettersArray : ";
+        /*std::cout << "\nlettersArray : ";
         for(char const lt : lettersArray)
             std::cout << lt << " | ";
         std::cout << "\n    intArray : ";
         for(int const nb : intArray)
             std::cout << nb << " | ";
-        std::cout << std::endl;
-
+        std::cout << std::endl;*/
         std::string const letter {NewLetter()};
-        UsedLetters(lettersUsed, letter[0], lettersArray);
-        intArray=Compare(letter[0], lettersArray, intArray);
+        intArray=Compare(letter[0], lettersArray, intArray, lettersUsed);
         DisplayWord(lettersArray, intArray);
     } while (!Win(intArray));
     return PlayAgain();
@@ -85,7 +83,7 @@ bool PlayAgain() //asks the player if he wants to play again
     bool goodInput {false};
     do
     {
-        std::cout << "\nDo you want to play again ?\n1. YES\n2. NO" << std::endl;
+        std::cout << "Do you want to play again ?\n1. YES\n2. NO" << std::endl;
         std::cin >> playAgain;
         if(std::cin.fail()||playAgain<1||playAgain>2)
             InputError();
@@ -121,7 +119,7 @@ std::vector<int> Setup(int const wordLength, std::vector<char>& lettersArray, st
     return intArray;
 }
 
-bool Win(std::vector<int> const intArray)
+bool Win(std::vector<int> const intArray) //checks if the player won
 {
     for(int const number : intArray)
         if(number==0)
@@ -129,42 +127,47 @@ bool Win(std::vector<int> const intArray)
     return true;
 }
 
-std::vector<int> Compare(char const letter, std::vector<char> const lettersArray, std::vector<int> intArray)
+std::vector<int> Compare(char const letter, std::vector<char> const lettersArray, std::vector<int> intArray, std::vector<char>& lettersUsed) //checks if the input letter is part of the word
 {
+    lettersUsed.push_back(letter);
     for(int i {0}; i<lettersArray.size(); i++)
         if(letter==lettersArray[i])
+        {
             intArray[i]=1;
+            RightWrong(true);
+            if(lettersUsed.size()>0)
+                lettersUsed.pop_back();
+        }
+    if(!lettersUsed.empty())
+        for(int i {0}; i<lettersUsed.size()-1; i++)
+            if(lettersUsed.back()==lettersUsed[i])
+                lettersUsed.pop_back();
+    UsedLetters(lettersUsed);
     return intArray;
 }
 
-void DisplayWord(std::vector<char> const lettersArray, std::vector<int> const intArray)
+void DisplayWord(std::vector<char> const lettersArray, std::vector<int> const intArray) //displays the word's letters with _ or the letter
 {
     for(int i {0}; i<lettersArray.size(); i++)
         if(intArray[i]==0)
             std::cout << " _ ";
         else
             std::cout << " " << lettersArray[i] << " ";
+    std::cout << std::endl;
 }
 
-void UsedLetters(std::vector<char>& letterUsed, char const letter, std::vector<char> const lettersArray)
+void UsedLetters(std::vector<char> const letterUsed) //displays wich letters have already been used
 {
-    /*for(char const lt : lettersArray)
-        if(letter==lt)
-            break;
-        else
-            letterUsed.push_back(letter);
-    std::cout << "\nAlready used letters : ";
-    for(char const lt : letterUsed)
-        std::cout << lt << ", ";
-    std::cout << std::endl;*/
-    for(int i {0}; i<lettersArray.size(); i++)
-        if(letter!=lettersArray[i])
-        {
-            letterUsed.push_back(letter);
-            break;
-        }
     std::cout << "\nAlready used letters : ";
     for(char const lt : letterUsed)
         std::cout << lt << ", ";
     std::cout << std::endl;
+}
+
+void RightWrong(bool const right)
+{
+    if(right)
+        std::cout << "Well done, you've find one of the letters." << std::endl;
+    else    
+        std::cout << "Nope, this isn't one of the letters." << std::endl;
 }
