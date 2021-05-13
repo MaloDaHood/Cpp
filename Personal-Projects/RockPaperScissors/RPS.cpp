@@ -13,10 +13,11 @@ bool Game()
     std::cout << "Welcome to a new game of Rock Paper Scissors." << std::endl;
     int playerCount {0};
     int computerCount {0};
-    while(playerCount<10&&computerCount<10)
+    int const max {GetMax()};
+    while(playerCount<max&&computerCount<max)
     {
-        char const playerMove {getPlayerMove()};
-        char const computerMove {getComputerMove()};
+        char const playerMove {GetPlayerMove()};
+        char const computerMove {GetComputerMove()};
         system("cls");
         DisplayMoves(playerMove, computerMove);
         if(playerMove==computerMove)
@@ -36,10 +37,14 @@ bool Game()
         }
         std::cout << "Player : " << playerCount << " points.\nComputer : " << computerCount << " points." << std::endl;
     }
+    if(playerCount==max)
+        std::cout << "You win this game, you are the first to reach " << max << " points." << std::endl;
+    else
+        std::cout << "The computer wins this game, it is the first to reach " << max << " points." << std::endl;
     return PlayAgain();
 }
 
-char getPlayerMove()
+char GetPlayerMove()
 {
     int move {0};
     bool goodInput {false};
@@ -70,7 +75,7 @@ void InputError(int const max)
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 }
 
-char getComputerMove()
+char GetComputerMove()
 {
     std::array<char, 3> const lettersArray {'R', 'P', 'S'};
     srand ((unsigned)time(0));
@@ -132,4 +137,21 @@ bool PlayAgain()
         return true;
     else 
         return false;
+}
+
+int GetMax()
+{
+    int max {0};
+    bool goodInput {false};
+    do
+    {
+        std::cout << "How many points does a player need to get in order to win the game ?" << std::endl;
+        std::cin >> max;
+        if(std::cin.fail()||max<1||max>100)
+            InputError(100);
+        else
+            goodInput=true;
+    } while (!goodInput);
+    system("cls");
+    return max;
 }
