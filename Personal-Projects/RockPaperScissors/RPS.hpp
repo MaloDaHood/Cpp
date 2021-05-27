@@ -7,11 +7,12 @@
 #include <array>
 
 bool Game();
-char getPlayerMove();
+char GetPlayerMove();
 void InputError(int const max);
-char getComputerMove();
+char GetComputerMove();
 bool PlayerWins(char const playerMove, char const computerMove);
 void DisplayMoves(char const playerMove, char const computerMove);
 bool PlayAgain();
+int GetMax();
 
 #endif
