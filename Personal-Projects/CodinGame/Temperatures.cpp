@@ -1,53 +1,34 @@
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
 void Answer(int const result);
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
-
 int main()
 {
-    int n; // the number of temperatures to analyse
+    int n;
     std::cin >> n; std::cin.ignore();
     std::vector<int> temperatureList;
-    for (int i = 0; i < n; i++) {
-        int t; // a temperature expressed as an integer ranging from -273 to 5526
+    for (int i = 0; i < n; i++) 
+    {
+        int t;
         std::cin >> t; std::cin.ignore();
-        temperatureList.push_back(abs(t));
+        temperatureList.push_back(t);
     }
-    int result {0};
     if(temperatureList.empty())
+        Answer(0);
+    int curr {abs(0-temperatureList[0])};
+    if(temperatureList.size()==1)
+        curr=temperatureList[0];
+    for(int i {0}; i<temperatureList.size(); i++)
     {
-        Answer(result);
+        if(temperatureList[i]==-(curr))
+            curr=abs(temperatureList[i]);
+        if(temperatureList[i]==temperatureList[i+1]) // hard-coded --> pas ouf du tout
+            curr=temperatureList[i];
+        if(abs(0-temperatureList[i])<curr)
+            curr=temperatureList[i];
     }
-    std::sort(std::begin(temperatureList), std::end(temperatureList));
-    Answer(temperatureList[0]);
-    /*int test {0};
-    int test2 {0};
-    for(int const temp : temperatureList)
-    {
-        test=abs(temp);
-        //test2=test;
-        if()
-
-    }*/
-    /*int test {0};
-    for(int i {0}; i < n; i++)
-    {
-        if(temperatureList[i]<test)
-        {
-            test=temperatureList[i];
-            result
-        }
-    }*/
-
-    // Write an answer using cout. DON'T FORGET THE "<< endl"
-    // To debug: cerr << "Debug messages..." << endl;
+    Answer(curr);
 }
 
 void Answer(int const result)
