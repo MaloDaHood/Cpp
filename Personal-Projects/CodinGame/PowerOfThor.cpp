@@ -1,17 +1,14 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
-
 int main()
 {
-    int lightX; // the X position of the light of power
-    int lightY; // the Y position of the light of power
-    int initialTX; // Thor's starting X position
-    int initialTY; // Thor's starting Y position
+    int lightX;
+    int lightY;
+    int initialTX;
+    int initialTY;
     std::cin >> lightX >> lightY >> initialTX >> initialTY; std::cin.ignore();
     while (1) {
-        int remainingTurns; // The remaining amount of turns Thor can move. Do not remove this line.
+        int remainingTurns;
         std::cin >> remainingTurns; std::cin.ignore();
         std::string direction;
         if(initialTY>lightY)
