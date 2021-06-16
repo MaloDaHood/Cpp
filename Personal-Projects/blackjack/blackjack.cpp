@@ -18,7 +18,7 @@ bool Game()
         return Piocher_Rejouer(false);
     if(Piocher_Rejouer(true))
     {
-        totalCartesJoueur=NouvelleCarte(totalCartesJoueur, true, mise);
+        /*totalCartesJoueur=*/NouvelleCarte(totalCartesJoueur, true, mise);
         if(totalCartesJoueur==-1)
             return Piocher_Rejouer(false);
     }
@@ -27,7 +27,7 @@ bool Game()
         return Piocher_Rejouer(false);
     if(totalCartesCroupier<=15)
     {
-        totalCartesCroupier=NouvelleCarte(totalCartesCroupier, false, mise);
+        /*totalCartesCroupier=*/NouvelleCarte(totalCartesCroupier, false, mise);
         if(totalCartesCroupier==-1)
             return Piocher_Rejouer(false);
     }
@@ -96,17 +96,19 @@ bool Piocher_Rejouer(bool const piocher)
         return false;
 }
 
-int NouvelleCarte(int const &totalPremieresCartes, bool const joueur, int const &mise)
+void NouvelleCarte(int &totalPremieresCartes, bool const joueur, int const &mise)
 {
-    int totalCartes {totalPremieresCartes};
     if(joueur)
     {
         do
         {
             Sleep(1000);
-            totalCartes=CartesFigures(joueur, false, totalCartes);
-            if(GagneOuPerdu(totalCartes, joueur, mise))
-                return -1;
+            totalPremieresCartes=CartesFigures(joueur, false, totalPremieresCartes);
+            if(GagneOuPerdu(totalPremieresCartes, joueur, mise))
+            {
+                totalPremieresCartes=-1;
+                return;
+            }
         }while(Piocher_Rejouer(true));
     }
     else
@@ -114,12 +116,14 @@ int NouvelleCarte(int const &totalPremieresCartes, bool const joueur, int const 
         do
         {
             Sleep(1000);
-            totalCartes=CartesFigures(joueur, false, totalCartes);
-            if(GagneOuPerdu(totalCartes, joueur, mise))
-                return -1;
-        } while (totalCartes<=15);
+            totalPremieresCartes=CartesFigures(joueur, false, totalPremieresCartes);
+            if(GagneOuPerdu(totalPremieresCartes, joueur, mise))
+            {
+                totalPremieresCartes=-1;
+                return;
+            }
+        } while (totalPremieresCartes<=15);
     }
-    return totalCartes;
 }
 
 void PlusOuMoins(int const &cartesJoueur, int const &cartesCroupier, int const &mise)

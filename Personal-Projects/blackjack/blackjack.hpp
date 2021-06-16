@@ -14,7 +14,7 @@
 bool Game();
 bool GagneOuPerdu(int const &total, bool const joueur, int const &mise);
 bool Piocher_Rejouer(bool const piocher);
-int NouvelleCarte(int const &totalPremieresCartes, bool const joueur, int const &mise);
+void NouvelleCarte(int &totalPremieresCartes, bool const joueur, int const &mise);
 void PlusOuMoins(int const &cartesJoueur, int const &cartesCroupier, int const &mise);
 void ErreurEntree(int const min, int const max, bool const as);
 int Miser();
