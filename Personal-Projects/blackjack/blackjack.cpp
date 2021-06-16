@@ -35,7 +35,7 @@ bool Game()
     return Piocher_Rejouer(false);
 }
 
-bool GagneOuPerdu(int const total, bool const joueur, int const mise)
+bool GagneOuPerdu(int const &total, bool const joueur, int const &mise)
 {
     if(joueur)
     {
@@ -96,7 +96,7 @@ bool Piocher_Rejouer(bool const piocher)
         return false;
 }
 
-int NouvelleCarte(int const totalPremieresCartes, bool const joueur, int const mise)
+int NouvelleCarte(int const &totalPremieresCartes, bool const joueur, int const &mise)
 {
     int totalCartes {totalPremieresCartes};
     if(joueur)
@@ -122,7 +122,7 @@ int NouvelleCarte(int const totalPremieresCartes, bool const joueur, int const m
     return totalCartes;
 }
 
-void PlusOuMoins(int const cartesJoueur, int const cartesCroupier, int const mise)
+void PlusOuMoins(int const &cartesJoueur, int const &cartesCroupier, int const &mise)
 {
     std::cout << "Vous : " << cartesJoueur << "\nCroupier : " << cartesCroupier << std::endl;
     if(21-cartesJoueur<21-cartesCroupier)
@@ -170,7 +170,7 @@ int Miser()
     return mise;
 }
 
-void Gain(int const mise, bool const gagner)
+void Gain(int const &mise, bool const gagner)
 {
     std::ifstream fichierMiseLecture {"mise.txt"};
     int miseTotale {0};
@@ -231,7 +231,7 @@ int CartesFigures(bool const joueur, bool const initial, int totalCartes)
     return totalCartes;
 }
 
-void AfficherCartes(std::string const carte1, bool const joueur, int const totalcartes, std::string const carte2)
+void AfficherCartes(std::string const &carte1, bool const &joueur, int const &totalcartes, std::string const carte2)
 {
     if(joueur)
     {
