@@ -18,7 +18,7 @@ bool Game()
         return Piocher_Rejouer(false);
     if(Piocher_Rejouer(true))
     {
-        /*totalCartesJoueur=*/NouvelleCarte(totalCartesJoueur, true, mise);
+        NouvelleCarte(totalCartesJoueur, true, mise);
         if(totalCartesJoueur==-1)
             return Piocher_Rejouer(false);
     }
@@ -27,7 +27,7 @@ bool Game()
         return Piocher_Rejouer(false);
     if(totalCartesCroupier<=15)
     {
-        /*totalCartesCroupier=*/NouvelleCarte(totalCartesCroupier, false, mise);
+        NouvelleCarte(totalCartesCroupier, false, mise);
         if(totalCartesCroupier==-1)
             return Piocher_Rejouer(false);
     }
