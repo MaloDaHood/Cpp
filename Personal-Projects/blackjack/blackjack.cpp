@@ -98,32 +98,22 @@ bool Piocher_Rejouer(bool const piocher)
 
 void NouvelleCarte(int &totalPremieresCartes, bool const joueur, int const &mise)
 {
-    if(joueur)
+    bool pass {true};
+    do
     {
-        do
+        Sleep(1000);
+        totalPremieresCartes=CartesFigures(joueur, false, totalPremieresCartes);
+        if(GagneOuPerdu(totalPremieresCartes, joueur, mise))
         {
-            Sleep(1000);
-            totalPremieresCartes=CartesFigures(joueur, false, totalPremieresCartes);
-            if(GagneOuPerdu(totalPremieresCartes, joueur, mise))
-            {
-                totalPremieresCartes=-1;
-                return;
-            }
-        }while(Piocher_Rejouer(true));
-    }
-    else
-    {
-        do
-        {
-            Sleep(1000);
-            totalPremieresCartes=CartesFigures(joueur, false, totalPremieresCartes);
-            if(GagneOuPerdu(totalPremieresCartes, joueur, mise))
-            {
-                totalPremieresCartes=-1;
-                return;
-            }
-        } while (totalPremieresCartes<=15);
-    }
+            totalPremieresCartes=-1;
+            return;
+        }
+        if(joueur)
+            pass=Piocher_Rejouer(true);
+        else
+            if(totalPremieresCartes>15)
+                pass=false;
+    }while(pass);
 }
 
 void PlusOuMoins(int const &cartesJoueur, int const &cartesCroupier, int const &mise)
@@ -237,26 +227,24 @@ int CartesFigures(bool const joueur, bool const initial, int totalCartes)
 
 void AfficherCartes(std::string const &carte1, bool const &joueur, int const &totalcartes, std::string const carte2)
 {
+    std::string person, result;
     if(joueur)
     {
-        if(carte1==carte2)
-            std::cout << "Vous tirez deux fois un" << carte1 << "." << std::endl;
-        else if(carte2=="0")
-            std::cout << "Vous tirez un" << carte1 << "." << std::endl;
-        else
-            std::cout << "Vous tirez un" << carte1 << " et un" << carte2 << "." << std::endl;
-        std::cout << "Vous etes a " << totalcartes << "." << std::endl;
+        person="Vous tirez";
+        result="Vous etes a ";
     }
     else
     {
-        if(carte1==carte2)
-            std::cout << "Le croupier tire deux fois un" << carte1 << "." << std::endl;
-        else if(carte2=="0")
-            std::cout << "Le croupier tire un" << carte1 << "." << std::endl;
-        else
-            std::cout << "Le croupier tire un" << carte1 << " et un" << carte2 << "." << std::endl;
-        std::cout << "Il est a " << totalcartes << "." << std::endl;
+        person="Le croupier tire";
+        result="Il est a ";
     }
+    if(carte1==carte2)
+        std::cout << person << " deux fois un" << carte1 << "." << std::endl;
+    else if(carte2=="0")
+        std::cout << person << " un" << carte1 << "." << std::endl;
+    else
+        std::cout << person << " un" << carte1 << " et un" << carte2 << "." << std::endl;
+    std::cout << result << totalcartes << "." << std::endl;
 }
 
 int As()
