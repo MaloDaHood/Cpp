@@ -59,13 +59,13 @@ void Error()
 std::string SplitInput(std::string const &input, std::string &arguments)
 {
     std::string command {""};
-    for(int i {0}; i<input.length(); i++)
+    for(int i {0}; i<int(input.length()); i++)
     {
         if(isalpha(input[i]))
             command.push_back(input[i]);
         else
         {
-            for(int j {i+1}; j<input.length(); j++)
+            for(int j {i+1}; j<int(input.length()); j++)
                 arguments.push_back(input[j]);
             break;
         }
@@ -83,9 +83,9 @@ void ParseArguments(std::vector<std::string> &infos, std::string &arguments)
         infos.push_back(arguments.substr(0, pos));
         arguments.erase(0, pos+delimiter.length());
     }
-    if(infos.size()<3)
+    if(int(infos.size())<3)
     {
-        for(int i {0}; i<=3-infos.size(); i++)
+        for(int i {0}; i<=3-int(infos.size()); i++)
         {
             infos.push_back("UNKNOWN");
         }
@@ -104,7 +104,7 @@ void ParseArguments(std::vector<std::string> &infos, std::string &arguments)
     while(std::any_of(std::begin(infos), std::end(infos), 
         [](std::string const &str){return str.empty();}))
     {
-        for(int i {0}; i<infos.size(); i++)
+        for(int i {0}; i<int(infos.size()); i++)
         {
             if(infos[i].empty())
                 infos[i]="UNKNOWN";
@@ -197,7 +197,7 @@ void Show(std::string const &argument, std::vector<std::vector<std::string>> &co
     {
         SortAlpha(container, 1);
         std::vector<std::string> usedAlbums{""};
-        for(int i {0}; i<container.size(); i++)
+        for(int i {0}; i<int(container.size()); i++)
         {
             if(std::find(usedAlbums.begin(), usedAlbums.end(), container[i][1])==std::end(usedAlbums))
             {
@@ -211,7 +211,7 @@ void Show(std::string const &argument, std::vector<std::vector<std::string>> &co
     {
         SortAlpha(container, 2);
         std::vector<std::string> usedArtists {""}, usedAlbums {""};
-        for(int i {0}; i<container.size(); i++)
+        for(int i {0}; i<int(container.size()); i++)
         {
             if(std::find(usedArtists.begin(), usedArtists.end(), container[i][2])==std::end(usedArtists))
             {
