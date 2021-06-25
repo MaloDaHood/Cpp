@@ -25,7 +25,7 @@ void  MissingArgumentsError(int const numberOfArguments)
     std::cout << "Error : You didn't provide enough arguments for this command.\nYou provided only : " << numberOfArguments << '.' << std::endl;
 }
 
-void WrongArgumentError(std::string const &argument, std::unordered_set<std::string> const &availableOptions)
+void WrongArgumentError(std::string const &argument, std::vector<std::string> const &availableOptions)
 {
     std::cout << "Error : Unknown option [" << argument << "]\nValid options are : ";
     for(std::string const &str : availableOptions)
@@ -43,4 +43,14 @@ void ImpossibleToCreateNewFileError()
 void ImpossibleToDeleteNewFileError()
 {
     std::cout << "Error : The deletion of the file failed." << std::endl;
+}
+
+void ImpossibleToCreateNewDirectoryError()
+{
+    std::cout << "Error : The creation of the directory failed." << std::endl;
+}
+
+void ImpossibleToDeleteDirectoryError()
+{
+    std::cout << "Error : The deletion of the directory failed." << std::endl;
 }

@@ -5,14 +5,14 @@ std::string ParseInput(std::string const &input, std::vector<std::string> &split
     std::string command {""}, arguments {""};
     for(int i {0}; i<int(input.length()); i++)
     {
-        if(isalpha(input[i]))
-            command.push_back(input[i]);
-        else
+        if(isspace(input[i]))
         {
             for(int j {i+1}; j<int(input.length()); j++)
-                arguments.push_back(input[j]);
+                    arguments.push_back(input[j]);
             break;
-        }
+        }  
+        else
+            command.push_back(input[i]);
     }
     size_t pos {0};
     while((pos=arguments.find(' '))!=std::string::npos)
