@@ -25,12 +25,22 @@ void  MissingArgumentsError(int const numberOfArguments)
     std::cout << "Error : You didn't provide enough arguments for this command.\nYou provided only : " << numberOfArguments << '.' << std::endl;
 }
 
-void WrongArgumentError(std::string const &argument, std::unordered_set<std::string> const &availableArguments)
+void WrongArgumentError(std::string const &argument, std::unordered_set<std::string> const &availableOptions)
 {
-    std::cout << "Error : Unknown argument [" << argument << "]\nValid arguments are : ";
-    for(std::string const &str : availableArguments)
+    std::cout << "Error : Unknown option [" << argument << "]\nValid options are : ";
+    for(std::string const &str : availableOptions)
     {
         std::cout << '[' << str << "] "; 
     }
     std::cout << std::endl;
+}
+
+void ImpossibleToCreateNewFileError()
+{
+    std::cout << "Error : The creation of the file failed." << std::endl;
+}
+
+void ImpossibleToDeleteNewFileError()
+{
+    std::cout << "Error : The deletion of the file failed." << std::endl;
 }

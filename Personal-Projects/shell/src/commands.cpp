@@ -14,10 +14,10 @@ void Say(std::vector<std::string> &arguments)
     }
     else
     {
-        std::unordered_set<std::string> const availableArguments {"-u","-l"};
-        if(arguments[0][0]=='-'&&availableArguments.find(arguments[0])==std::end(availableArguments))
+        std::unordered_set<std::string> const availableOptions {"-u","-l"};
+        if(arguments[0][0]=='-'&&availableOptions.find(arguments[0])==std::end(availableOptions))
         {
-            WrongArgumentError(arguments[0], availableArguments);
+            WrongArgumentError(arguments[0], availableOptions);
             return;
         }
         else if(arguments[0]=="-u")
@@ -47,4 +47,44 @@ void Say(std::vector<std::string> &arguments)
             std::cout << arguments[0] << std::endl;
         }
     }
+}
+
+void CreateFile(std::vector<std::string> const &splitedArguments, std::string const &currentLocation)
+{
+    if(splitedArguments.size()>1)
+    {
+        TooMuchArgumentsError(int(splitedArguments.size()));
+        return;
+    }
+    else
+    {
+        std::ofstream newFile {currentLocation+splitedArguments[0]};
+        if(!newFile)
+        {
+            ImpossibleToCreateNewFileError();
+            return;
+        }
+        else
+            newFile.close();
+    }
+}
+
+void DeleteFile(std::vector<std::string> const &splitedArguments, std::string const &currentLocation)
+{
+   if(splitedArguments.size()>1)
+    {
+        TooMuchArgumentsError(int(splitedArguments.size()));
+        return;
+    }
+    else
+    {
+        char *fileName;
+        std::string file {currentLocation+splitedArguments[0]};
+        fileName=&file[0];
+        if(remove(fileName))
+        {
+            ImpossibleToDeleteNewFileError();
+            return;
+        }
+    } 
 }
