@@ -1,5 +1,5 @@
-#ifndef MAIN
-#define MAIN
+#ifndef HEADER_H
+#define HEADER_H
 
 #include <iostream>
 #include <string>
@@ -34,4 +34,4 @@ void DeleteDirectory(std::vector<std::string> const &splitedArguments, std::stri
 
 void GetOS();
 
-#endif
+#endif //HEADER_H
