@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "header.hpp"
 
 void GetOS()
 {

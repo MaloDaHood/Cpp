@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "header.hpp"
 
 void Say(std::vector<std::string> &arguments)
 {
@@ -129,7 +129,7 @@ void DeleteDirectory(std::vector<std::string> const &splitedArguments, std::stri
             WrongArgumentError(splitedArguments[0], availableOptions);
             return;
         }
-        else if(splitedArguments[0]=="-a")
+        /*else if(splitedArguments[0]=="-a")
         {
             char *dirName;
             std::string dir {currentLocation+splitedArguments[0]};
@@ -139,7 +139,7 @@ void DeleteDirectory(std::vector<std::string> const &splitedArguments, std::stri
                 ImpossibleToDeleteDirectoryError();
                 return;
             }
-        }
+        }*/
         else
         {
             char *dirName;

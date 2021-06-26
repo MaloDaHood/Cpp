@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "header.hpp"
 
 std::string ParseInput(std::string const &input, std::vector<std::string> &splitedArguments)
 {
