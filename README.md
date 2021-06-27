@@ -15,7 +15,7 @@ or
 ***
 
 - ## On Linux 
-> If a Makerfile is present
+> If a Makefile is present
 
 ``$ make``
 
