@@ -7,19 +7,16 @@ If you want to run the code you will have to compile it.
 - ## On Windows
 > With MinGW installed
 
-```
-$ g++ file.cpp -o prog.exe
+``$ g++ file.cpp -o prog.exe``
 or
-$ g++ *.cpp -o prog.exe
-```
+``$ g++ *.cpp -o prog.exe``
+
 
 ***
 
 - ## On Linux 
 > If a Makerfile is present
 
-```
-$ make
-```
+``$ make``
 
 > Else you can do the same as Windows
