@@ -2,14 +2,18 @@
 
 int main()
 {
-    system("cls");
+    #ifdef _WIN64
+        system("cls");
+    #elif __linux__
+        system("clear");
+    #endif
     std::vector<std::vector<std::string>> container; //contains all the data temporarily - [i][0]=song | [i][1]=album | [i][2]=artist
     while(true)
     {
         std::cout << "> ";
         std::string input;
         std::getline(std::cin, input);
-        std::string arguments {""};      
+        std::string arguments {""};
         std::string command {SplitInput(input, arguments)};
         std::string argumentsCopy {arguments};
         std::transform(command.begin(), command.end(), command.begin(), [](unsigned char c){return std::tolower(c);});
@@ -45,7 +49,7 @@ int main()
                 Error();
                 continue;
             }
-        else 
+        else
             container.clear();
     }
     return 0;
@@ -90,7 +94,7 @@ void ParseArguments(std::vector<std::string> &infos, std::string &arguments)
             infos.push_back("UNKNOWN");
         }
     }
-    while(std::any_of(std::begin(infos), std::end(infos), 
+    while(std::any_of(std::begin(infos), std::end(infos),
         [](std::string const &str){return isspace(str.front())||isspace(str.back());}))
     {
         for(std::string &str : infos)
@@ -101,7 +105,7 @@ void ParseArguments(std::vector<std::string> &infos, std::string &arguments)
                 str.pop_back();
         }
     }
-    while(std::any_of(std::begin(infos), std::end(infos), 
+    while(std::any_of(std::begin(infos), std::end(infos),
         [](std::string const &str){return str.empty();}))
     {
         for(int i {0}; i<int(infos.size()); i++)
