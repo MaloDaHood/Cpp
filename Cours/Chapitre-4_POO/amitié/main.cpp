@@ -10,6 +10,7 @@ class Fraction
         Fraction(int numerateur, int denominateur) noexcept;
         double valeur_reelle() const noexcept;
         void simplification() noexcept;
+        friend Fraction pow(Fraction const &fraction, int puissance);
 
     private:
         int m_numerateur {0};
@@ -21,6 +22,14 @@ Fraction::Fraction(int numerateur, int denominateur) noexcept
     : m_numerateur(numerateur), m_denominateur(denominateur)
 {
     assert(m_denominateur != 0 && "Le dénominateur ne peut pas valoir 0.");
+}
+
+Fraction pow(Fraction const &fraction, int puissance)
+{
+    Fraction copie {fraction};
+    copie.m_numerateur=std::pow(fraction.m_numerateur, puissance);
+    copie.m_denominateur=std::pow(fraction.m_denominateur, puissance);
+    return copie;
 }
 
 double Fraction::valeur_reelle() const noexcept
