@@ -12,6 +12,7 @@ int main()
         while(window.pollEvent(event))
         {
             input.InputHandler(event, window);
+            CheckButton();
         }
         window.clear(sf::Color::Blue);
         window.draw(txt);
@@ -35,4 +36,38 @@ void SetText(sf::Text &txt, sf::String const &str)
     txt.setCharacterSize(50);
     txt.setFillColor(sf::Color::Red);
     txt.setStyle(sf::Text::Bold | sf::Text::Underlined);
+}
+
+void CheckButton()
+{
+    if(input.GetButton().left)
+    {
+        // Affichage position
+        posX-=1;
+        sprintf(tempX, "%d", posX);
+        SetText(txt, tempX);
+    }
+    if(input.GetButton().right)
+    {
+        // Affichage position
+        posX+=1;
+        sprintf(tempX, "%d", posX);
+        SetText(txt, tempX);
+    }
+    if(input.GetButton().up)
+    {
+        SetText(txt, "Up");
+    }
+    if(input.GetButton().down)
+    {
+        SetText(txt, "Down");
+    }
+    if(input.GetButton().attack)
+    {
+        SetText(txt, "Attack");
+    }
+    if(input.GetButton().escape)
+    {
+        window.close();
+    }
 }
