@@ -6,19 +6,25 @@ int main()
     options.antialiasingLevel = 8;
     window.create(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT, 32), "SFML APP", sf::Style::Default, options);
     window.setVerticalSyncEnabled(true);
+
     LoadFont();
     SetText(score, "0/0");
     score.setPosition(WIN_WIDTH/2, 50);
+
     sf::RectangleShape leftRectangle(sf::Vector2f(50.f, 200.f));
     leftRectangle.setFillColor(sf::Color::White);
     leftRectangle.setPosition(50, posYL);
+
     sf::RectangleShape rightRectangle(sf::Vector2f(50.f, 200.f));
     rightRectangle.setFillColor(sf::Color::White);
     rightRectangle.setPosition(WIN_WIDTH-100, posYR);
+
     sf::CircleShape ball(25);
     ball.setFillColor(sf::Color::White);
     ball.setOrigin(25, 25);
     ball.setPosition(WIN_WIDTH/2, WIN_HEIGHT/2);
+    int ballMoveDirection {5};
+
     while(window.isOpen())
     {
         sf::Event event;
@@ -29,13 +35,14 @@ int main()
             leftRectangle.setPosition(50, posYL);
             rightRectangle.setPosition(WIN_WIDTH-100, posYR);
         }
+        if(checkBallColision(ball, rightRectangle))ballMoveDirection=-5;
+        if(checkBallColision(ball, leftRectangle))ballMoveDirection=5;
         window.clear(sf::Color::Black);
         window.draw(score);
         window.draw(leftRectangle);
         window.draw(rightRectangle);
         window.draw(ball);
-        ball.move(1, 0);
-        checkBall(ball);
+        ball.move(ballMoveDirection, 0);
         window.display();
     }
     return 0;
@@ -91,10 +98,11 @@ void CheckButton()
     }
 }
 
-void checkBall(sf::CircleShape ball)
+bool checkBallColision(sf::CircleShape const &ball, sf::RectangleShape const &rectangle)
 {
-    if(ball.getPosition().x>WIN_WIDTH)
+    if(ball.getGlobalBounds().intersects(rectangle.getGlobalBounds()))
     {
-        ball.setPosition(10, ball.getPosition().y);
+        return true;
     }
+    else return false;
 }
