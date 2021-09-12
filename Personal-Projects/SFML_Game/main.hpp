@@ -21,6 +21,6 @@ int posYR {1};
 void LoadFont();
 void SetText(sf::Text &txt, sf::String const &str);
 void CheckButton();
-void checkBall(sf::CircleShape ball);
+bool checkBallColision(sf::CircleShape const &ball, sf::RectangleShape const &rectangle);
 
 #endif
