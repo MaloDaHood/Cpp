@@ -2,29 +2,6 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "Windows - C/C++: g++.exe générer le fichier actif",
-            "command": "C:\\MinGW\\bin\\g++.exe",
-            "args": [
-                "-std=c++2a",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Tâche générée par le débogueur."
-        },
-        {
-            "type": "cppbuild",
             "label": "Linux - C/C++: g++.exe générer le fichier actif",
             "command": "/usr/bin/g++",
             "args": [
