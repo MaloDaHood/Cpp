@@ -1,8 +1,9 @@
-## C++
-Les cours que je suis : 
+# C++
 
-- <a href="https://zestedesavoir.com/tutoriels/822/la-programmation-en-c-moderne/">La programmation en C++ moderne</a>
+Les cours que je suis :
+
+- [La programmation en C++ moderne](https://zestedesavoir.com/tutoriels/822/la-programmation-en-c-moderne/)
 
 ***
 
-- <a href="https://www.youtube.com/watch?v=qg4-ZKl1Mjo&list=PLpfOedZZax4yCRxWULMDFrkCB-ZLafcRI">SFML2 / C++</a>
+- [SFML 2 : Développer des jeux 2D avec C++](https://www.udemy.com/course/sfml-2-developper-des-jeux-2d-avec-cpp-programmation-objet-jeu-video/)
