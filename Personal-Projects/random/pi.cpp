@@ -17,7 +17,7 @@ int main()
         x += 2;
         if(i%2 == 0)
             pi -= 4/x;
-        else 
+        else
             pi += 4/x;
     }
     auto end = std::chrono::high_resolution_clock::now();
@@ -33,10 +33,9 @@ int main()
     //     }
     // }
 
-    int count {0};
-    for(int i {0}; piDecimals[i] == piStr[i+2]; i++)
-        count++;
-    std::cout << "Accurate up to the " << count << "th decimal." << std::endl;
+    int i;
+    for(i = 0; piDecimals[i] == piStr[i+2]; i++);
+    std::cout << "Accurate up to the " << i << "th decimal." << std::endl;
 
 
     std::chrono::duration<double, std::milli> float_ms = end - start;
