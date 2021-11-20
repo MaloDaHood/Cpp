@@ -19,4 +19,4 @@ or
 
 ``$ make``
 
-> Else you can do the same as Windows
+> Else you can do the same as Windows without the ``.exe``
