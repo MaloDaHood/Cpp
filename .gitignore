@@ -37,5 +37,6 @@
 
 # VSCode stuff
 *.code-workspace
+.vscode
 
-/old
+.idea
