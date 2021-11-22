@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include "base64.h"
 #include <unordered_map>
+#include "base64.h"
 
 int main() 
 {
@@ -9,13 +9,13 @@ int main()
     std::cout << "Formule encodée ?" << std::endl;
     std::getline(std::cin, formuleEncode);
     std::string formuleDecode64 {base64_decode(formuleEncode)};
-    std::string alphabet {"abcdefghijklmnopqrstuvwxyz"};
     std::unordered_map<char, int> alphabet_map;
-    for(size_t i {0}; i<alphabet.length(); i++)
+    for(int i {0}; i < 26; i++)
     {
-        alphabet_map[alphabet[i]] = i+1;
+        alphabet_map[char(i+97)] = i+1;
     }
-    for(size_t i {0}; i<formuleDecode64.length(); i++)
+    for(size_t i {0}; i < formuleDecode64.length(); i++)
+    //for(char const &lettre : formuleDecode64)
     {
         if(!std::isalpha(formuleDecode64[i]))
         {
