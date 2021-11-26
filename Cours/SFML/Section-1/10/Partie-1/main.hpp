@@ -12,6 +12,6 @@ sf::Text txt;
 
 void InputHandler(sf::Event event, sf::RenderWindow &window);
 void LoadFont();
-void SetText(sf::Text &txt, sf::String const &str);
+void SetText(/*sf::Text &txt, */sf::String const &str);
 
 #endif

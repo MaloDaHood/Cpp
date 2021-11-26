@@ -20,7 +20,7 @@ void Input::InputHandler(sf::Event const &event, sf::RenderWindow &window)
         window.close();
     }
 
-    // Gestion des touches préssées au clavier
+    // Gestion des touches pressées au clavier
     if(event.type==sf::Event::KeyPressed)
     {
         switch(event.key.code)
@@ -45,7 +45,7 @@ void Input::InputHandler(sf::Event const &event, sf::RenderWindow &window)
         }
     }
 
-    // Gestion des touches relachées au clavier
+    // Gestion des touches relâchées au clavier
     if(event.type==sf::Event::KeyReleased)
     {
         switch(event.key.code)
@@ -79,7 +79,7 @@ void Input::InputHandler(sf::Event const &event, sf::RenderWindow &window)
         }
     }
 
-    // Gestion des bouttons relachés sur la souris
+    // Gestion des bouttons relâchés sur la souris
     if(event.type==sf::Event::MouseButtonPressed)
     {
         if(event.mouseButton.button==sf::Mouse::Left)

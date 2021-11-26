@@ -5,7 +5,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT, 32), "SFML APP");
     window.setVerticalSyncEnabled(true);
     LoadFont();
-    SetText(txt, "TEST");
+    SetText(/*txt, */"TEST");
     while(window.isOpen())
     {
         sf::Event event;
@@ -41,11 +41,11 @@ void InputHandler(sf::Event const event, sf::RenderWindow &window)
         // Flèches clavier
         if(event.key.code==sf::Keyboard::Up)
         {
-            SetText(txt, "UP !");
+            SetText(/*txt, */"UP !");
         }
         if(event.key.code==sf::Keyboard::Down)
         {
-            SetText(txt, "DOWN !");
+            SetText(/*txt, */"DOWN !");
         }
     }
 
@@ -55,11 +55,11 @@ void InputHandler(sf::Event const event, sf::RenderWindow &window)
         // Tester quelle boutton a été utilisé
         if(event.mouseButton.button==sf::Mouse::Left)
         {
-            SetText(txt, "Clique Gauche !");
+            SetText(/*txt, */"Clique Gauche !");
         }
         if(event.mouseButton.button==sf::Mouse::Right)
         {
-            SetText(txt, "Clique Droit !");
+            SetText(/*txt, */"Clique Droit !");
         }
     }
 }
@@ -72,7 +72,7 @@ void LoadFont()
     }
 }
 
-void SetText(sf::Text &txt, sf::String const &str)
+void SetText(/*sf::Text &txt, */sf::String const &str)
 {
     txt.setFont(font);
     txt.setString(str);

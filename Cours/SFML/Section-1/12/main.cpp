@@ -44,15 +44,17 @@ void CheckButton()
     {
         // Affichage position
         posX-=1;
-        sprintf(tempX, "%d", posX);
-        SetText(txt, tempX);
+        // sprintf(tempX, "%d", posX);
+        // SetText(txt, tempX);
+        SetText(txt, std::to_string(posX));
     }
     if(input.GetButton().right)
     {
         // Affichage position
         posX+=1;
-        sprintf(tempX, "%d", posX);
-        SetText(txt, tempX);
+        // sprintf(tempX, "%d", posX);
+        // SetText(txt, tempX);
+        SetText(txt, std::to_string(posX));
     }
     if(input.GetButton().up)
     {

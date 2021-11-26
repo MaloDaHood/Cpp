@@ -15,11 +15,9 @@ sf::Text txt;
 
 // Positions
 int posX {1};
-int posY {1};
 
 // Astuce pour afficher un chiffre sous forme de string
-char tempX[256];
-char tempY[256];
+// char tempX[256];
 
 void LoadFont();
 void SetText(sf::Text &txt, sf::String const &str);
