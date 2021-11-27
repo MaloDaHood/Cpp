@@ -4,12 +4,13 @@ int main()
 {
     window.create(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT, 32), "SFML APP", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
-    LoadTexture();
+    LoadHeroTexture("res/hero_sheet.png");
     LoadMapFromFile("map/map1.txt");
-    LoadMapFromFile("map/map1_collision.txt", true);
     Map map;
     if(!map.load("res/tileset.png", sf::Vector2u(SPRITE_SIZE, SPRITE_SIZE), levelLoaded, COL_COUNT, ROW_COUNT))
         return EXIT_FAILURE;
+    heroSprite.setOrigin((SPRITE_SIZE / 2), (SPRITE_SIZE / 2));
+    heroSprite.setPosition(SPRITE_SIZE, SPRITE_SIZE);
     while (window.isOpen())
     {
         sf::Event event;
@@ -43,25 +44,44 @@ void CheckButton()
         if (input.GetButton().left)
         {
             heroAnim.y = Left;
-            heroSprite.move(-WALK_SPEED, 0);
+
+            // Vérification si à notre gauche on une case solide ou pas
+            hPosX = int(heroSprite.getPosition().x) / SPRITE_SIZE;
+            // Si la position futures est sur une case non solide
+            if(levelLoadedCollisions[(hPosX + hPosY * COL_COUNT)] == 0 && heroSprite.getPosition().x > 8)
+            {
+                heroSprite.move(-WALK_SPEED, 0);
+            }
             heroIdle = false;
         }
         else if (input.GetButton().right)
         {
             heroAnim.y = Right;
-            heroSprite.move(WALK_SPEED, 0);
+            hPosX = (int(heroSprite.getPosition().x) + (WALK_SPEED * 2)) / SPRITE_SIZE;
+            if(levelLoadedCollisions[(hPosX + hPosY * COL_COUNT)] == 0 && heroSprite.getPosition().x < WIN_WIDTH - 8)
+            {    
+                heroSprite.move(WALK_SPEED, 0);
+            }
             heroIdle = false;
         }
         else if (input.GetButton().up)
         {
             heroAnim.y = Up;
-            heroSprite.move(0, -WALK_SPEED);
+            hPosY = int(heroSprite.getPosition().y) / SPRITE_SIZE;
+            if(levelLoadedCollisions[(hPosX + hPosY * COL_COUNT)] == 0 && heroSprite.getPosition().y > 8)
+            {
+                heroSprite.move(0, -WALK_SPEED);
+            }
             heroIdle = false;
         }
         else if (input.GetButton().down)
         {
             heroAnim.y = Down;
-            heroSprite.move(0, WALK_SPEED);
+            hPosY = (int(heroSprite.getPosition().y) + (WALK_SPEED * 6)) / SPRITE_SIZE;
+            if(levelLoadedCollisions[(hPosX + hPosY * COL_COUNT)] == 0 && heroSprite.getPosition().y < WIN_HEIGHT - 8)
+            {
+                heroSprite.move(0, WALK_SPEED);
+            }
             heroIdle = false;
         }
         else
@@ -82,9 +102,9 @@ void CheckButton()
     debug = input.GetButton().space;
 }
 
-void LoadTexture()
+void LoadHeroTexture(std::string file)
 {
-    if (!heroTexture.loadFromFile("res/hero_sheet.png"))
+    if (!heroTexture.loadFromFile(file))
     {
         std::cout << "Erreur chargement texture héros." << std::endl;
     }
@@ -114,32 +134,32 @@ void AnimPlayer()
     }
 }
 
-std::vector<std::string> explode(std::string const &str, char delim)
+void LoadMapFromFile(std::string file)
 {
-    std::vector<std::string> result;
-    std::istringstream iss(str);
-    for(std::string token; std::getline(iss, token, delim);)
-    {
-        result.push_back(std::move(token));
-    }
-    return result;
-}
-
-void LoadMapFromFile(std::string file, bool isCollisionMap)
-{
-    std::ifstream ifs(file);
-    std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
-    std::string collision {"\n"};
-    if(isCollisionMap) collision = "(collisions)\n";
-    std::cout << "Map chargée : " << collision << content << std::endl;
-    std::vector<std::string> exploded {explode(content, ' ')};
+    std::ifstream map(file);
+    std::string content((std::istreambuf_iterator<char>(map)), (std::istreambuf_iterator<char>()));
+    std::vector<char> exploded {explode(content, ' ')};
+    std::cout << "Map chargée :\n" << content << std::endl;
     for(int i {0}; i < COL_COUNT*ROW_COUNT; i++)
     {
-        if(!isCollisionMap)
-            levelLoaded[i] = std::stoi(exploded[i]);
+        levelLoaded[i] = exploded[i] - '0';
+        if(levelLoaded[i] > 0)
+            levelLoadedCollisions[i] = 1;
         else
-            levelLoadedCollisions[i] = std::stoi(exploded[i]);
+            levelLoadedCollisions[i] = 0;
     }
+}
+
+std::vector<char> explode(std::string const &content, char const &delim)
+{
+    std::vector<char> result;
+    for(char const &c : content)
+    {
+        if(c == delim)
+            continue;
+        result.push_back(c);
+    }
+    return result;
 }
 
 void ShowCollisions()

@@ -14,7 +14,7 @@
 constexpr int WIN_WIDTH {800}; // 25 tiles de 32 pixels
 constexpr int WIN_HEIGHT {576}; // 18 tiles de 32 pixels
 constexpr int SPRITE_SIZE {32}; // On a des sprites de 32x32 pixels
-constexpr int WALK_SPEED {1}; // Vitesse de déplacement du personnage
+constexpr int WALK_SPEED {2}; // Vitesse de déplacement du personnage
 constexpr int COL_COUNT {25}; // Nombres de cases en largeur (col)
 constexpr int ROW_COUNT {18}; // Nombre de cases en lignes (row)
 
@@ -33,10 +33,10 @@ sf::RectangleShape rects[COL_COUNT * ROW_COUNT];
 bool debug {false};
 
 void CheckButton();
-void LoadTexture();
+void LoadHeroTexture(std::string file);
 void AnimPlayer();
-std::vector<std::string> explode(std::string const &str, char delim);
-void LoadMapFromFile(std::string file, bool isCollisionMap = false);
+void LoadMapFromFile(std::string file);
+std::vector<char> explode(std::string const &content, char const &delim);
 void ShowCollisions();
 
 #endif
