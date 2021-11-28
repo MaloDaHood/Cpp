@@ -1,9 +1,6 @@
 #ifndef MONSTER_HPP
 #define MONSTER_HPP
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 class Monster
 {
     public:
@@ -16,8 +13,6 @@ class Monster
             this->m_sprite.setTexture(this->m_texture);
             this->m_sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
         }
-
-        //Monster(){ };
 
         sf::Sprite getSprite()
         {
@@ -71,8 +66,6 @@ class Slime : public Monster
             this->m_sprite.setScale(0.6f, 0.6f);
             this->m_life = 3;
         }
-
-        //Slime(){ };
 
         sf::Sprite animate()
         {

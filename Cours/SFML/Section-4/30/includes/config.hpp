@@ -10,4 +10,7 @@ constexpr int ROW_COUNT {18}; // Nombre de cases en lignes (row)
 constexpr int ARROW_SPEED {4}; // Vitesse de la flèche
 constexpr int SLIME_COUNT {5}; // Nombre de slimes
 
+int levelLoaded[COL_COUNT * ROW_COUNT];
+int levelLoadedCollisions[COL_COUNT * ROW_COUNT];
+
 #endif

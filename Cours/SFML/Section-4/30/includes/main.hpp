@@ -13,34 +13,12 @@
 #include "map.hpp"
 #include "portal.hpp"
 #include "monster.hpp"
+#include "player.hpp"
 #include "arrow.hpp"
 
-sf::RenderWindow window;
-Input input;
-sf::Texture heroTexture;
-enum Dir {Down, Right, Up, Left, Down_Atk, Right_Atk, Up_Atk, Left_Atk};
-sf::Vector2i heroAnim(0, Down);
-sf::Clock heroAnimClock;
-bool heroIdle {true};
-bool needResetAnim {false};
-int levelLoaded[COL_COUNT * ROW_COUNT];
-int levelLoadedCollisions[COL_COUNT * ROW_COUNT];
-sf::RectangleShape rects[COL_COUNT * ROW_COUNT];
-bool debug {false};
-//Slime slime("res/slime.png");
-
-// Projectile
-sf::Texture arrowTexture;
-sf::Sprite arrowSprite;
-
-void CheckButton();
-void LoadHeroTexture(std::string file);
-void LoadSlimeTexture(std::string file);
-void LoadArrowTexture(std::string file);
-void AnimPlayer();
+void CheckButton(Input const &input, sf::RenderWindow &window, bool &debug);
 std::vector<std::string> explode(std::string const &content, char const &delim);
-void ShowCollisions();
-void HandleArrow();
-void Draw(std::vector<sf::Sprite> const &drawables);
+void ShowCollisions(sf::RenderWindow &window, sf::RectangleShape rects[COL_COUNT * ROW_COUNT]);
+void Draw(std::vector<sf::Sprite> const &drawables, sf::RenderWindow &window);
 
 #endif

@@ -1,9 +1,6 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 class Map : public sf::Drawable, public sf::Transformable
 {
     public:
