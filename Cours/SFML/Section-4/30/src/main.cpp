@@ -1,21 +1,29 @@
 #include "../includes/main.hpp"
-Slime slime("res/slime.png");
+
+std::vector<Slime> slimes;
+
 int main()
 {
     window.create(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT, 32), "SFML APP", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     LoadHeroTexture("res/hero_sheet.png");
-    // LoadSlimeTexture("res/slime.png");
     LoadArrowTexture("res/arrow.png");
     UpdateMap();
+
+    slimes.reserve(SLIME_COUNT);
+    for(int i {0}; i < SLIME_COUNT; i++)
+    {
+        slimes.emplace_back("res/slime.png");
+        slimes[i].setPosition(WIN_WIDTH / (i + 1), WIN_HEIGHT / 2);
+    }
+    
 
     goToMap1.setFillColor(sf::Color(0, 0, 250, 100));
     goToMap1.setPosition(goToMap1Coord.x, goToMap1Coord.y);
     goToMap2.setFillColor(sf::Color(0, 0, 250, 100));
     goToMap2.setPosition(goToMap2Coord.x, goToMap2Coord.y);
 
-    // Slime slime("res/slime.png");
-    slime.setPosition(WIN_WIDTH / 3, WIN_HEIGHT / 2);
+    //slime.setPosition(WIN_WIDTH / 5, WIN_HEIGHT / 2);
 
     while (window.isOpen())
     {
@@ -28,12 +36,11 @@ int main()
         AnimPlayer();
         window.clear(sf::Color::Black);
         window.draw(mapInstance);
-        window.draw(heroSprite);
-        if(slime.isAlive())
+        for(size_t i {0}; i < slimes.size(); i++)
         {
-            slime.animate();
-            window.draw(slime.getSprite());
+            window.draw(slimes[i].animate());
         }
+        Draw({heroSprite});
         HandleArrow();
         if(debug)
         {
@@ -114,10 +121,13 @@ void CheckButton()
                 if(!mapInstance.load("res/tileset.png", sf::Vector2u(SPRITE_SIZE, SPRITE_SIZE), levelLoaded, COL_COUNT, ROW_COUNT))
                     std::cout << "Erreur lors du chargement de la map" << std::endl;
             }
-            if(slime.getSprite().getGlobalBounds().intersects(heroSprite.getGlobalBounds()))
+            for(size_t i {0}; i < slimes.size(); i++)
             {
-                std::cout << "hit" << std::endl;
-                slime.takeDamage(1);
+                if(slimes[i].getHitBox().intersects(heroSprite.getGlobalBounds()) && slimes[i].isAlive())
+                {
+                    std::cout << "hit" << std::endl;
+                    slimes[i].takeDamage(1);
+                }  
             }
         }
     }
@@ -161,18 +171,6 @@ void AnimPlayer()
         heroAnimClock.restart();
     }
 }
-
-// void LoadSlimeTexture(std::string file)
-// {
-//     if (!slimeTexture.loadFromFile(file))
-//     {
-//         std::cout << "Erreur chargement texture héros." << std::endl;
-//     }
-//     slimeSprite.setTexture(slimeTexture);
-//     slimeSprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
-//     slimeSprite.setPosition(5 * SPRITE_SIZE, 5 * SPRITE_SIZE);
-//     slimeSprite.setScale(0.6f, 0.6f);
-// }
 
 void LoadArrowTexture(std::string file)
 {
@@ -238,4 +236,12 @@ void UpdateMap()
 void HandleArrow()
 {
 
+}
+
+void Draw(std::vector<sf::Sprite> const &drawables)
+{
+    for(sf::Sprite const &sprite : drawables)
+    {
+        window.draw(sprite);
+    }
 }

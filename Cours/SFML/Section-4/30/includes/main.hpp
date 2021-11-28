@@ -13,6 +13,7 @@
 #include "map.hpp"
 #include "portal.hpp"
 #include "monster.hpp"
+#include "arrow.hpp"
 
 sf::RenderWindow window;
 Input input;
@@ -26,10 +27,8 @@ int levelLoaded[COL_COUNT * ROW_COUNT];
 int levelLoadedCollisions[COL_COUNT * ROW_COUNT];
 sf::RectangleShape rects[COL_COUNT * ROW_COUNT];
 bool debug {false};
+//Slime slime("res/slime.png");
 
-// Monstre
-// sf::Texture slimeTexture;
-// sf::Sprite slimeSprite;
 // Projectile
 sf::Texture arrowTexture;
 sf::Sprite arrowSprite;
@@ -42,5 +41,6 @@ void AnimPlayer();
 std::vector<std::string> explode(std::string const &content, char const &delim);
 void ShowCollisions();
 void HandleArrow();
+void Draw(std::vector<sf::Sprite> const &drawables);
 
 #endif
