@@ -12,5 +12,6 @@ constexpr int SLIME_COUNT {5}; // Nombre de slimes
 
 int levelLoaded[COL_COUNT * ROW_COUNT];
 int levelLoadedCollisions[COL_COUNT * ROW_COUNT];
+int actualMap {1};
 
 #endif

@@ -8,7 +8,7 @@ int main()
     Input input;
     Player player("res/hero_sheet.png");
     Portal portal1(sf::Vector2f(17, 0), 2, sf::Vector2f(17, 17));
-    Portal portal2(sf::Vector2f(17, 18), 1, sf::Vector2f(17, 0));
+    Portal portal2(sf::Vector2f(17, 17.5), 1, sf::Vector2f(17, 0));
     std::vector<Slime> slimes;
     Arrow arrow("res/arrow.png");
     sf::RectangleShape rects[COL_COUNT * ROW_COUNT];
@@ -25,11 +25,6 @@ int main()
         slimes[i].setPosition(WIN_WIDTH / (i + 1), WIN_HEIGHT / 2);
     }
     
-    // goToMap1.setFillColor(sf::Color(0, 0, 250, 100));
-    // goToMap1.setPosition(goToMap1Coord.x, goToMap1Coord.y);
-    // goToMap2.setFillColor(sf::Color(0, 0, 250, 100));
-    // goToMap2.setPosition(goToMap2Coord.x, goToMap2Coord.y);
-
     while (window.isOpen())
     {
         sf::Event event;
@@ -50,11 +45,10 @@ int main()
         {
             ShowCollisions(window, rects);
             window.draw(portal1.getPortal());
-            window.draw(portal2.getPortal());  
+            window.draw(portal2.getPortal());
         }
-        //SimpleCollisions(player, mapInstance);
-        portal1.checkCollisions(player, mapInstance, input);
-        portal2.checkCollisions(player, mapInstance, input);
+        portal1.checkCollisions(player, mapInstance);
+        portal2.checkCollisions(player, mapInstance);
         window.display();
     }
     return EXIT_SUCCESS;
