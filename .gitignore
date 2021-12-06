@@ -32,8 +32,8 @@
 *.app
 
 # Building directories
-*/*/bin
-*/*/build
+**/bin
+**/build
 
 # VSCode stuff
 *.code-workspace
