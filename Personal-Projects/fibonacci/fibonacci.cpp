@@ -3,8 +3,8 @@
 int main()
 {
     std::cout << "How long ?" << std::endl;
-    int lenght;
-    std::cin >> lenght;
+    int length;
+    std::cin >> length;
     
     double F0 {0.0};
     double F1 {1.0};
@@ -12,7 +12,7 @@ int main()
 
     std::cout << "F0:" << F0 << std::endl << "F1:" << F1 << std::endl;
 
-    for(int i {1}; i<lenght; i++)
+    for(int i {1}; i<length; i++)
     {
         n=F0+F1;
         F0=F1;
