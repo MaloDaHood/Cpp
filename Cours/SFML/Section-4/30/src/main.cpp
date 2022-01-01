@@ -24,6 +24,8 @@ int main()
         slimes.emplace_back("res/slime.png");
         slimes[i].setPosition(WIN_WIDTH / (i + 1), WIN_HEIGHT / 2);
     }
+
+    setSlimesPosition(slimes);
     
     while (window.isOpen())
     {
@@ -86,5 +88,20 @@ void Draw(std::vector<sf::Sprite> const &drawables, sf::RenderWindow &window)
     for(sf::Sprite const &sprite : drawables)
     {
         window.draw(sprite);
+    }
+}
+
+void setSlimesPosition(std::vector<Slime> &slimes)
+{
+    srand (time(NULL));
+    for(size_t i {0}; i < slimes.size(); i++)
+    {
+        // newPos == pixels
+        std::pair<int, int> newPos {(rand() % 25) * SPRITE_SIZE, (rand() % 18) * SPRITE_SIZE};
+        while(levelLoadedCollisions[(newPos.first / SPRITE_SIZE) + (newPos.second / SPRITE_SIZE) * COL_COUNT] == 1)
+        {
+            newPos = std::make_pair((rand() % 25) * SPRITE_SIZE, (rand() % 18) * SPRITE_SIZE);
+        }
+        slimes[i].setPosition(newPos.first, newPos.second);
     }
 }

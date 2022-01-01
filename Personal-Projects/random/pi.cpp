@@ -12,7 +12,7 @@ int main()
     std::cout << "How many iterations ?" << std::endl;
     std::cin >> it;
     auto start = std::chrono::high_resolution_clock::now();
-    for(int i {0}; i<it; i++)
+    for(int i {0}; i < it; i++)
     {
         x += 2;
         if(i%2 == 0)
@@ -24,19 +24,18 @@ int main()
     std::string piStr {boost::lexical_cast<std::string>(pi)};
     std::cout << std::setprecision(15) << "Pi : " << pi << std::endl;
     
-    // for(int i {0}; i<int(piDecimals.length()); i++)
-    // {
-    //     if(piDecimals[i] != piStr[i+2])
-    //     {
-    //         std::cout << "Accurate up to the " << i << "th decimal." << std::endl;
-    //         break;
-    //     }
-    // }
+    for(size_t i {0}; i<piDecimals.length(); i++)
+    {
+        if(piDecimals[i] != piStr[i+2])
+        {
+            std::cout << "Accurate up to the " << i << "th decimal." << std::endl;
+            break;
+        }
+    }
 
     int i;
     for(i = 0; piDecimals[i] == piStr[i+2]; i++);
     std::cout << "Accurate up to the " << i << "th decimal." << std::endl;
-
 
     std::chrono::duration<double, std::milli> float_ms = end - start;
     std::cout << "Elapsed time is " << float_ms.count() << " milliseconds" << std::endl;
